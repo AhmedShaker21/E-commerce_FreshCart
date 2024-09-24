@@ -11,18 +11,13 @@ import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [RouterLink , CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss'
 })
 export class WishlistComponent implements OnInit {
-
-
   wishlistData: WishList[] = [];
   isEmpty: boolean = true;
-
-
-
   myWishlist !: WishList;
   constructor(private _cartService: CartService, private _WishlistService: WishlistService,
     private _ToastrService: ToastrService) { }
@@ -72,7 +67,8 @@ export class WishlistComponent implements OnInit {
 
 
 
-  removeWish(id: string): void {
+  removeWish(id: string, event: MouseEvent) {
+    event.stopPropagation();
     this._WishlistService.removeWishlist(id).subscribe({
       next: (response) => {
         this._WishlistService.getLoggedWishlist().subscribe({
